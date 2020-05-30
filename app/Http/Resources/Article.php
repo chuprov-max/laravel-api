@@ -18,7 +18,8 @@ class Article extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'status' => $this->status
+            'status' => $this->status,
+            'speechUrl' => $this->getSpeechFilePublicUrl(),
         ];
     }
 }

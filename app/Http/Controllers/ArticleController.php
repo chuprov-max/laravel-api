@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Events\Article\Created;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\StoreArticle;
 use App\Http\Resources\Article as ArticleResource;
@@ -35,18 +36,18 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreArticle $request
+     * @return ArticleResource
      */
-    public function store(Request $request)
+    public function store(StoreArticle $request)
     {
         $article = new Article();
 
         $article->title = $request->input('title');
         $article->body = $request->input('body');
-        $article->status = Article::STATUS_CREATED;
 
         if ($article->save()) {
+            event(new Created($article));
             return new ArticleResource($article);
         }
     }
@@ -54,8 +55,8 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return ArticleResource
      */
     public function show($id)
     {
@@ -88,8 +89,8 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return ArticleResource
      */
     public function destroy($id)
     {
@@ -98,6 +99,5 @@ class ArticleController extends Controller
         if ($article->delete()) {
             return new ArticleResource($article);
         }
-
     }
 }

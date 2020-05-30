@@ -19,4 +19,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('article', 'ArticleController');
-//Route::get('articles', 'ArticleController@index');
