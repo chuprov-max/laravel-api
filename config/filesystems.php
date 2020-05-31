@@ -65,6 +65,14 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'yandex' => [
+            'driver' => 'yandexcloud',
+            'key' => env('YANDEX_CLOUD_ACCESS_KEY_ID'),
+            'secret' => env('YANDEX_CLOUD_SECRET_ACCESS_KEY'),
+            'bucket' => env('YANDEX_CLOUD_BUCKET'),
+            'region' => env('YANDEX_CLOUD_DEFAULT_REGION'),
+        ],
+
     ],
 
     /*

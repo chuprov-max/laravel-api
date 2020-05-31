@@ -45,10 +45,6 @@ class ArticleEventSubscriber
         $article = $event->article;
         $article->changeStatus(Article::STATUS_SUCCESS_SYNTHESIZED);
         logs()->info("ArticleEventSubscriber: Article #{$event->article->id} successfully synthesized");
-
-        if ($article->moveFileFromStorageToPublic()) {
-            logs()->info("ArticleEventSubscriber: Article #{$event->article->id}. File successfully moved to public directory");
-        }
     }
 
     public function handleFailSynthesized(FailSynthesized $event)

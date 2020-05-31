@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
+        "flipe23/yandex-object-storage-provider": "^1.1",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "itpanda-llc/yandex-speechkit-php-sdk": "dev-master",
@@ -53,8 +54,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan storage:link"
+            "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

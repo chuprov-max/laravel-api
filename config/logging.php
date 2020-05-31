@@ -42,8 +42,8 @@ return [
         ],
 
         'single' => [
-            'driver' => 'errorlog', //'single',
-            //'path' => storage_path('logs/laravel.log'),
+            'driver' => env('LOGGING_HEROKU_SINGLE', 'single'),
+            'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
         ],
 

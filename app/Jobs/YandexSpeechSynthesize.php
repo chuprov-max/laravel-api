@@ -11,6 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Panda\Yandex\SpeechKitSDK\Cloud;
 use Panda\Yandex\SpeechKitSDK\Emotion;
 use Panda\Yandex\SpeechKitSDK\Exception\ClientException;
@@ -111,13 +112,15 @@ class YandexSpeechSynthesize implements ShouldQueue
      */
     private function synthesizeTextToSoundFile(Cloud $cloud, Speech $speech)
     {
-        $filePath = $this->article->getSpeechFileStoragePath();
-        if ($filePath && file_put_contents($filePath, $cloud->request($speech))) {
+
+        $fileStoragePath = $this->article->getYandexStorageFilePath();
+        logs()->info("Start saving file to Yandex storage: {$fileStoragePath}");
+        if (Storage::disk('yandex')->put($fileStoragePath, $cloud->request($speech))) {
             event(new SuccessSynthesized($this->article));
-            logs()->info("File \"{$filePath}\" synthesized successfully");
+            logs()->info("File \"{$fileStoragePath}\" synthesized successfully");
         } else {
             event(new FailSynthesized($this->article));
-            logs()->error("Error: File \"{$filePath}\" doesn't synthesized");
+            logs()->error("Error: File \"{$fileStoragePath}\" doesn't synthesized");
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
 {
@@ -12,29 +13,6 @@ class Article extends Model
     const STATUS_SUCCESS_SYNTHESIZED = 4;
     const STATUS_FAILED_SYNTHESIZED = 5;
 
-    const STORAGE_DIRECTORY = 'app/speech/';
-    const PUBLIC_DIRECTORY = 'app/public/speech/';
-
-    /**
-     * Get sound file's path on filesystem (after Yandex Speech Kit API processing)
-     *
-     * @param bool $checkExists
-     * @return string|null
-     */
-    public function getSpeechFileStoragePath(bool $checkExists = false)
-    {
-        $filePath = storage_path(self::STORAGE_DIRECTORY."{$this->getSpeechFilename()}");
-        if (!$checkExists) {
-            return $filePath;
-        }
-
-        if (file_exists($filePath)) {
-            return $filePath;
-        }
-
-        return null;
-    }
-
     /**
      * Get sound file public url (direct link to listen)
      *
@@ -42,28 +20,20 @@ class Article extends Model
      */
     public function getSpeechFilePublicUrl()
     {
-        $filePath = storage_path(self::PUBLIC_DIRECTORY . "{$this->getSpeechFilename()}");
+        $yandexStorage = Storage::disk('yandex');
+        $yandexStorageFilePath = $this->getYandexStorageFilePath();
 
-        if (file_exists($filePath)) {
-            return asset("storage/speech/{$this->getSpeechFilename()}");
-        }
-
-        return null;
+        return $yandexStorage->exists($yandexStorageFilePath) ? $yandexStorage->url($yandexStorageFilePath) : null;
     }
 
     /**
-     * Move file from storage directory (after processed via Speech Kit API) to public directory
+     * Get path to file on Yandex Cloud Storage (inside selected bucket)
      *
-     * @return bool
+     * @return string
      */
-    public function moveFileFromStorageToPublic()
+    public function getYandexStorageFilePath()
     {
-        $storageFilePath = $this->getSpeechFileStoragePath(true);
-        if (!$storageFilePath) {
-            return false;
-        }
-
-        return \Illuminate\Support\Facades\File::move($storageFilePath, storage_path(self::PUBLIC_DIRECTORY . "{$this->getSpeechFilename()}"));
+        return "synthesize/{$this->getSpeechFilename()}";
     }
 
     /**
