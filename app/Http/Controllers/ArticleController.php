@@ -8,6 +8,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\StoreArticle;
 use App\Http\Resources\Article as ArticleResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -80,14 +81,20 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @return ArticleResource
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
         $article = Article::find($id);
 
+        $soundFileName = $article->getYandexStorageFilePath();
+
         if ($article->delete()) {
-            return new ArticleResource($article);
+            $yandexStorage = Storage::disk('yandex');
+            if ($yandexStorage->exists($soundFileName)) {
+                $yandexStorage->delete($soundFileName);
+            }
+            return response()->json(null);
         }
     }
 }
