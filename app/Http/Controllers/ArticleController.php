@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Events\Article\Created;
+use App\Events\Article\Queued;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\StoreArticle;
 use App\Http\Resources\Article as ArticleResource;
@@ -73,6 +74,7 @@ class ArticleController extends Controller
         $article->body = $request->input('body');
 
         if ($article->save()) {
+            event(new Queued($article));
             return new ArticleResource($article);
         }
     }
