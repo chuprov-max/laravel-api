@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "a49699f1-ed2f-4234-b543-eab884552cef",
+		"name": "4fresh Laravel API",
+		"description": "Laravel API to synthesize text to sound file",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Получить список статей",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://immense-refuge-94796.herokuapp.com/api/article",
+					"protocol": "https",
+					"host": [
+						"immense-refuge-94796",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить статью по ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://immense-refuge-94796.herokuapp.com/api/article/1",
+					"protocol": "https",
+					"host": [
+						"immense-refuge-94796",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"article",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавить статью",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "ТОП-20 НАТУРАЛЬНЫХ ШАМПУНЕЙ",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "Как же сложно выбрать шампунь, который будет на 100% устраивать! Многие годами находятся в поиске своего идеала. Особенные сложности испытывают те, кто только открывает для себя мир натуральной косметики и меняет привычные средства масс-маркета на органику: без навигатора здесь не обойтись.\nМы уже писали о том, как выбрать шампунь исходя из типа и потребностей волос. Обращаем внимание, что с шампунями все всегда индивидуально и к любому новому средству нужно привыкать хотя бы 1-2 недели.\n\nПредставляем 20 наиболее популярных натуральных шампуней без сульфатов (без SLS и SLES). В этой подборке мы постарались подобрать средства, с которыми переход на органику будет наиболее комфортным.",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://immense-refuge-94796.herokuapp.com/api/article",
+					"protocol": "https",
+					"host": [
+						"immense-refuge-94796",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"article"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Обновить информацию о статье по ID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "4fresh title",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "Факты от нутрициолога. А вы знали что?...\nЭксперт интенсива — Анна Никольская, нутрициолог, health-специалист, консультант по питанию, поделилась с нами некоторыми интересными фактами.\n\nА вы знали, что:\n\nЗа 1 прием пищи усваивается до 20-30 гр белка.\nЖивотный белок не сочетается со злаками и крахмалом, только с клетчаткой (зелень/овощи).\nЖиры снижают тягу к сладкому.\nЛучше выбирать цельные жиры (с клетчаткой), а не выжимку (масло).\n«Хочу то, не знаю что» сигнализирует о дефиците жиров.\nСнизить тягу к сладкому также помогают продукты с горьким вкусом - репа, руккола, цикорий, имбирь.\nОтеки - это симптом обезвоженности, а не переизбытка воды.\nВитамин С работает как антистресс – нейтрализация избытка кортизола/поддержка надпочечников.\nИсточники витамина А: морковь, перец, абрикосы, облепиха, тыква, апельсины, рябина. Их лучше употреблять с жирами.\nСудороги сигнализируют о дефиците магния.\nБелые пятна на ногтях и их ломкость - симптом дефицита цинка.\nВ период первых трех дней болезни научно доказана польза повышенной дозировки цинка.",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://immense-refuge-94796.herokuapp.com/api/article/3",
+					"protocol": "https",
+					"host": [
+						"immense-refuge-94796",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"article",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удалить статью по ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://immense-refuge-94796.herokuapp.com/api/article/6",
+					"protocol": "https",
+					"host": [
+						"immense-refuge-94796",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"article",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
