@@ -94,7 +94,7 @@ class YandexSpeechSynthesize implements ShouldQueue
      */
     private function createSynthesizeTextTask()
     {
-        $speech = new Speech($this->article->body);
+        $speech = new Speech(str_replace(array("\r", "\n"), '', strip_tags($this->article->body)));
         $speech->setLang(Lang::RU)
             ->setVoice(Ru::OKSANA)
             ->setEmotion(Emotion::GOOD)
